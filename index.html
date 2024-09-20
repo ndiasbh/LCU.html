@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Code Update</title>
+    <style>
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+	
+</head>
+<body>
+    <h1>Live Code Update</h1>
+	 <h2> Type your script below and save it as a .txt file. <h2>
+    <textarea id="codeInput" rows="10" cols="50" placeholder="Write your HTML code here..."></textarea>
+    <div id="output"></div>
+
+    <script>
+	<!--INFORMATION - Live Code Update -->
+        const codeInput = document.getElementById('codeInput');
+        const output = document.getElementById('output');
+
+        codeInput.addEventListener('input', () => {
+            try {
+                output.innerHTML = codeInput.value;
+            } catch (error) {
+                console.error('Error updating HTML:', error);
+                output.innerHTML = ''; // Clear output if there's an error
+            }
+        });
+
+
+	<!--INFORMATION - Save text to file -->
+	
+	
+	<!-- INFORMATION - Naming text file -->
+
+		
+
+	function downloadFile (filename, content) {
+		const element  = document.createElement('a');
+		const blob = new Blob([content], {
+			type: 'text/plain'
+		});
+		const fileURL = URL.createObjectURL(blob);
+		element.setAttribute('href', fileURL);
+		element.setAttribute('download', filename);
+		element.style.display = 'none';
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
+	};
+
+	window.onload = () =>{ 
+		document.getElementById('download').addEventListener('click', e =>{
+			const filename = document.getElementById('filename').value;
+			const content  = document.getElementById('codeInput').value;	
+			if (filename && content) { 
+				downloadFile (filename, content);
+			}
+		});
+	}
+    </script>
+
+	 <br>
+	</br>
+	<input placeholder = "Name your file here..." id = "filename">
+	<button id = "download"> Save to File </button> 
+</body>
+</html>
